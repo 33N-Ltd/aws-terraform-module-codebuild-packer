@@ -14,6 +14,12 @@ resource "aws_codebuild_project" "builder" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
+
+    environment_variable {
+      name  = "AWS_CODEBUILD_CIDR"
+      value = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks
+    }
+
   }
 
   source {
