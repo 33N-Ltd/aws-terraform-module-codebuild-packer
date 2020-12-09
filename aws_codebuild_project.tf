@@ -26,7 +26,7 @@ resource "aws_codebuild_project" "builder" {
     type                = "GITHUB"
     location            = var.source_repository_url
     buildspec           = data.template_file.ami_buildspec.rendered
-    git_clone_depth     = "0"
+    git_clone_depth     = "1"
     report_build_status = true
 
     auth {
