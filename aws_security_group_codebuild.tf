@@ -4,12 +4,12 @@ resource "aws_security_group" "codebuild" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port = 22
-    to_port   = 22
-    protocol  = "TCP"
-    self      = true
-    //    cidr_blocks = ["0.0.0.0/0"]
-    cidr_blocks = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    self        = true
+    cidr_blocks = ["0.0.0.0/0"]
+    //    cidr_blocks = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks
   }
 
   egress {
