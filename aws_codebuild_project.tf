@@ -16,9 +16,8 @@ resource "aws_codebuild_project" "builder" {
     privileged_mode             = true
 
     environment_variable {
-      name  = "AWS_CODEBUILD_CIDR"
+      name  = "AWS_CODEBUILD_SG_ID"
       value = aws_security_group.codebuild.id
-      //      value = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks[0]
     }
 
   }
