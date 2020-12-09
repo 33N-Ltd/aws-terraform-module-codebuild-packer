@@ -17,7 +17,8 @@ resource "aws_codebuild_project" "builder" {
 
     environment_variable {
       name  = "AWS_CODEBUILD_CIDR"
-      value = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks[0]
+      value = aws_security_group.codebuild.id
+      //      value = data.aws_ip_ranges.eu_west_2_codebuild.cidr_blocks[0]
     }
 
   }
