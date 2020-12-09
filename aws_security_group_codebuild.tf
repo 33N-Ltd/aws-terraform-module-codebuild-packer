@@ -9,7 +9,8 @@ resource "aws_security_group" "codebuild" {
     to_port     = 22
     protocol    = "TCP"
     self        = true
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = data.aws_subnet.private.cidr_block
+    //    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
