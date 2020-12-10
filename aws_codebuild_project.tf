@@ -14,13 +14,19 @@ resource "aws_codebuild_project" "builder" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
+
+    environment_variable {
+      name  = "AWS_CODEBUILD_SG_ID"
+      value = aws_security_group.codebuild.id
+    }
+
   }
 
   source {
     type                = "GITHUB"
     location            = var.source_repository_url
     buildspec           = data.template_file.ami_buildspec.rendered
-    git_clone_depth     = "0"
+    git_clone_depth     = "1"
     report_build_status = true
 
     auth {
