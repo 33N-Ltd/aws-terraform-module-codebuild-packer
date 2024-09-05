@@ -77,6 +77,10 @@ locals {
     "BUILD_INITIATOR=$CODEBUILD_INITIATOR",
     "PACKER_BUILD_VPC_ID=\"${var.vpc_id}\"",
     "PACKER_BUILD_SUBNET_ID=\"${var.packer_build_subnet_ids[0]}\"",
+    "PACKER_PLUGIN_PATH=$(pwd)",
+    "echo Installing required plugins...",
+    "./packer plugins install github.com/hashicorp/ansible",
+    "./packer plugins install github.com/hashicorp/amazon",
     "echo Validating packer template to build...",
     "./packer validate -var-file=\"${var.packer_vars_file_location}\" ${var.packer_file_location}",
   ]
