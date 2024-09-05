@@ -71,12 +71,16 @@ locals {
 
   ami_pre_build_commands = [
     "echo Installing HashiCorp Packer...",
-    "curl -qL -o packer.zip https://releases.hashicorp.com/packer/1.6.5/packer_1.6.5_linux_amd64.zip && unzip -o packer.zip",
+    "curl -qL -o packer.zip https://releases.hashicorp.com/packer/1.11.2/packer_1.11.2_linux_amd64.zip && unzip -o packer.zip",
     "echo Create build number from git hash",
     "BUILD_NUMBER=$(git rev-parse --short HEAD)",
     "BUILD_INITIATOR=$CODEBUILD_INITIATOR",
     "PACKER_BUILD_VPC_ID=\"${var.vpc_id}\"",
     "PACKER_BUILD_SUBNET_ID=\"${var.packer_build_subnet_ids[0]}\"",
+    "PACKER_PLUGIN_PATH=$(pwd)",
+    "echo Installing required plugins...",
+    "./packer plugins install github.com/hashicorp/ansible",
+    "./packer plugins install github.com/hashicorp/amazon",
     "echo Validating packer template to build...",
     "./packer validate -var-file=\"${var.packer_vars_file_location}\" ${var.packer_file_location}",
   ]
