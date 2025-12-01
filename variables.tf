@@ -65,6 +65,16 @@ variable "common_tags" {
   type = map(string)
 }
 
+variable "additional_environment_variables" {
+  description = "Additional environment variables to pass to CodeBuild. These are merged with the default AWS_CODEBUILD_SG_ID variable."
+  type = list(object({
+    name  = string
+    value = string
+    type  = optional(string, "PLAINTEXT")
+  }))
+  default = []
+}
+
 locals {
   ami_install_commands = [
   ]

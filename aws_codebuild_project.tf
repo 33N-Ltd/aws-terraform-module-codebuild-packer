@@ -20,6 +20,14 @@ resource "aws_codebuild_project" "builder" {
       value = aws_security_group.codebuild.id
     }
 
+    dynamic "environment_variable" {
+      for_each = var.additional_environment_variables
+      content {
+        name  = environment_variable.value.name
+        value = environment_variable.value.value
+        type  = environment_variable.value.type
+      }
+    }
   }
 
   source {
